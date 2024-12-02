@@ -174,18 +174,19 @@ class LoadCheckpoint12:
             raise ValueError(f"加载模型失败: {str(e)}")
 
 
+@PromptServer.instance.routes.get("/checkpoints/by_type")
 @PromptServer.instance.routes.post("/checkpoints/by_type")
 async def get_checkpoints_by_type(request):
     """获取指定类型的模型列表"""
     try:
-        data = await request.json()
-        if not isinstance(data, dict):
-            return web.json_response({
-                "success": False,
-                "error": "无效的请求数据格式"
-            }, status=400)
+        # 根据请求方法获取数据
+        if request.method == "GET":
+            # 从查询参数中获取type
+            model_type = request.query.get("type")
+        else:  # POST
+            data = await request.json()
+            model_type = data.get("type")
             
-        model_type = data.get("type")
         if not model_type:
             return web.json_response({
                 "success": False,
