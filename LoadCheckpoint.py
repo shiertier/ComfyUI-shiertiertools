@@ -173,10 +173,8 @@ class LoadCheckpoint12:
         except Exception as e:
             raise ValueError(f"加载模型失败: {str(e)}")
 
-
-@PromptServer.instance.routes.get("/checkpoints/by_type")
-@PromptServer.instance.routes.post("/checkpoints/by_type")
-async def get_checkpoints_by_type(request):
+@PromptServer.instance.routes.get("/shiertier/checkpoints/by_type")
+async def get_checkpoints_by_type_new(request):
     """获取指定类型的模型列表"""
     try:
         # 根据请求方法获取数据
@@ -214,6 +212,26 @@ async def get_checkpoints_by_type(request):
                 "error": str(e)
             }, status=500)
             
+    except Exception as e:
+        return web.json_response({
+            "success": False,
+            "error": f"服务器内部错误: {str(e)}"
+        }, status=500)
+
+
+# 添加新的路由获取所有检查点
+@PromptServer.instance.routes.get("/shiertier/checkpoints/all")
+async def get_all_checkpoints_data(request):
+    """获取所有类型的模型列表"""
+    try:
+        classified_models = LoadCheckpoint12.get_classified_models()
+        return web.json_response({
+            "success": True,
+            "data": {
+                "checkpoints": classified_models,
+                "total": sum(len(models) for models in classified_models.values())
+            }
+        })
     except Exception as e:
         return web.json_response({
             "success": False,
