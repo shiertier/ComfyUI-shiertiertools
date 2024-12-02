@@ -8,7 +8,7 @@ class RandomChoiceList:
     def INPUT_TYPES(s):
         return {
             "required": {
-                "input_list": ("STRING", {"list": True}),  # 使用多行字符串输入作为列表
+                "input_list": ("SIMPLE_PROMPT_LIST", ),  # 使用多行字符串输入作为列表
             }
         }
     
