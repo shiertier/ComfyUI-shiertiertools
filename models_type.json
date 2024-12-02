@@ -1,0 +1,10 @@
+{"sdxl": ["xl", "XL", "SDXL", "sdxl"],
+ "flux": ["flux", "FLUX"],
+ "sd15": ["sd15", "sd1.5", "SD15", "SD1.5", "15", "1.5"],
+ "sd3": ["sd3", "SD3"],
+ "bopbtl": ["bopbtl"],
+ "detection": ["detection"],
+ "supir": ["SUPIR", "supir"],
+ "svd": ["svd"],
+ "sv3d": ["sv3d"],
+ "other": []}
