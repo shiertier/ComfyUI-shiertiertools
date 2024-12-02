@@ -99,7 +99,7 @@ def classify_models(model_types: Dict[str, List[str]]) -> Dict[str, Dict[str, st
         for model_type, models in classified_models.items()
     }
 
-class CheckpointLoaderSimple:
+class LoadCheckpoint12:
     """模型检查点加载器"""
     _model_types_cache: Optional[Dict[str, List[str]]] = None
     _models_by_type_cache: Optional[Dict[str, Dict[str, str]]] = None
@@ -193,7 +193,7 @@ async def get_checkpoints_by_type(request):
             }, status=400)
             
         try:
-            classified_models = CheckpointLoaderSimple.get_classified_models()
+            classified_models = LoadCheckpoint12.get_classified_models()
             models = classified_models.get(model_type, {})
             
             return web.json_response({
@@ -222,9 +222,9 @@ async def get_checkpoints_by_type(request):
 
 # 注册节点
 NODE_CLASS_MAPPINGS = {
-    "CheckpointLoaderSimple": CheckpointLoaderSimple
+    "LoadCheckpoint12": LoadCheckpoint12
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "CheckpointLoaderSimple": "Checkpoint Loader Simple"
+    "LoadCheckpoint12": "加载Checkpoint(简易)"
 }
